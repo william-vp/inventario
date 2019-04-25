@@ -1,0 +1,48 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+@import 'resources/assets/styles/index.scss';
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.btn{
+  border-radius: 0px;
+}
+input.form-control, textarea.form-control, select.form-control{
+  border-radius: 0px;
+}
+
+.modal-content{
+  border-radius: 0px;
+}
+
+.modal-header .close{
+  background: #cd0a20;
+  color: #fff;
+  opacity: 1;
+}
+
+.title-2{
+  font-family: "Agency FB";
+  color: red;
+}
+
+.inputTable{
+  width: 40% !important;
+}
+
+@media (max-width:991px){
+  .inputTable{
+    width: 500px !important;
+  }
+}
+
