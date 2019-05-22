@@ -149,13 +149,14 @@
                 </tbody>
             </table>
         </div>
-
-    </div>
-    <div class="row mt-4">
-        <div class="col-xs-12 col-lg-8 col-sm-12">
+        <div class="col-xs-12 col-lg-7 col-sm-12">
             <h4 class="text-info text-center">CALENDARIO</h4>
             <div id="calendar"></div>
         </div>
+
+    </div>
+    <div class="row mt-4">
+
     </div>
 
 </div>

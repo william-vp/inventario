@@ -37,10 +37,9 @@ class HomeController extends Controller
         $pedidosContado= Pedido::whereBetween('created_at', [$dateI, $dateF])->count();
         $pedidosCredito= PedidoCredito::whereBetween('created_at', [$dateI, $dateF])->count();
         $pedidos= $pedidosContado + $pedidosCredito;
-        $agregados= Product::select('products.id','products.nombre','products.imagen')
-            //'detalles.producto_id','detalles.cantidad','detalles.valor_unitario','detalles.valor_total')
-            //->join('products', 'products.id','=','detalles.producto_id')
-            ->orderBy('products.created_at','DESC')->take(5)->skip(0)->distinct()->get(); 
+	        $agregados= Product::select('products.id','products.nombre','products.imagen')
+	        ->orderBy('products.created_at','DESC')->take(5)->skip(0)->distinct()->get(); 
+	            
 
         return view('index')
             ->with('usuarios',$user)

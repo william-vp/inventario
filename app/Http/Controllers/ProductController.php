@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categoria;
-use App\product;
+use App\Product;
 use App\Detalle;
 use App\DetalleCredito;
 use App\DetallesPedidoCredito;
@@ -169,7 +169,7 @@ class ProductController extends Controller
         $producto->descripcion = $request->descripcion;
 
         if ($request->file('imagen') == null){
-            $producto->imagen = 'product.png';
+            //$producto->imagen = 'product.png';
         }else{
             Storage::delete($producto->imagen);
             $producto->imagen = $request->file('imagen')->store('public/productos');

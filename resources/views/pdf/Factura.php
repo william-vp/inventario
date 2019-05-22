@@ -5,14 +5,18 @@
 	<title>Ver Factura <?= $factura->id ?> </title>
 <style>
 *{
-  border-spacing: -5px;
+  border-spacing: -4px;
 }
- 
+
 body{
   padding: 0px;
   margin: 0px;
-  font-family: Helvetica;
-  font-size: 8px;
+  font-family: Helvetica, 'sans-serif';
+  font-size: 9px;
+}
+
+tr th{
+    margin-right: 25px;
 }
 
  .col-md-12 {
@@ -50,7 +54,6 @@ body{
     margin: 0;
     line-height: 1;
 }
-
 .box-body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -59,8 +62,6 @@ body{
     padding: 10px;
 
 }
-
-
 .box-footer {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -76,11 +77,9 @@ body{
     border: 1px solid #f4f4f4;
 }
 
-
  .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
     border: 1px solid #f4f4f4;
 }
-
 
 .badge {
     display: inline-block;
@@ -100,6 +99,9 @@ body{
 .bg-red {
     background-color: #dd4b39 !important;
 }
+.bg-gray {
+    background-color: #cccccc !important;
+}
 
 #tablaDetalles tr th{
   margin-right: 10px;
@@ -116,14 +118,14 @@ body{
 
 <div style="margin-top: -30px; margin-left: -30px; margin-right: -35px; margin-bottom: -50px;">   
     <table border="0"  style="width: 100%;">
-      <tr>
-        <td>
+      <tr style="margin-bottom: 10px;">
+        <td colspan="2" align="center" >
           <img src="images/logo.png" width="40">
         </td>
-        <td align="left"><strong>NOMBRE EMPRESA</strong><br>
-            slogan empresa
-        </td>
       </tr>
+    <tr align="center">
+        <td colspan="2"><strong><?= session('app_name') ?></strong><br></td>
+    </tr>
       <tr align="center">
         <td colspan="2">Nit. 00000000000</td>
       </tr>
@@ -186,21 +188,21 @@ body{
               <?=mb_strtoupper($producto->nombre, 'UTF-8')?>
           </td>
           <!--<td align="center"><?=$producto->impuesto?></td>-->
-          <td align="center"><?=number_format($producto->valor_unitario,'1',',','.')?></td>
-          <td align="right"><?=number_format($producto->valor_total,'1',',','.')?></td>
+          <td align="center">$<?=number_format($producto->valor_unitario,'1',',','.')?></td>
+          <td align="right">$<?=number_format($producto->valor_total,'1',',','.')?></td>
         </tr>
       <?php
      }
      ?>
         <tr>
           <td colspan="2"></td>
-          <th colspan="2">SUBTOTAL</th>
-          <td align="right"><?=number_format($factura->subtotal,'1',',','.')?></td>
+          <th colspan="1">SUBTOTAL</th>
+          <td align="right">$<?=number_format($factura->subtotal,'1',',','.')?></td>
         </tr>
         <tr>
           <td colspan="2"></td>
-          <th colspan="2">IVA</th>
-          <td align="right"><?=number_format($factura->iva,'1',',','.')?></td>
+          <th colspan="1">IVA</th>
+          <td align="right">$<?=number_format($factura->iva,'1',',','.')?></td>
         </tr>
 
         <?php
@@ -208,17 +210,17 @@ body{
           ?>
              <tr>
               <td colspan="2"></td>
-              <th colspan="2">DESCUENTO (<?=$factura->descuento?>%) </th>
-              <?php $valDescuento= $factura->subtotal * ($factura->descuento / 100); ?>
-              <td align="right"><?=number_format($valDescuento,'1',',','.')?></td>
+              <th colspan="1">DESCUENTO (<?=$factura->descuento?>%) </th>
+              $<?php $valDescuento= $factura->subtotal * ($factura->descuento / 100); ?>
+              <td align="right">$<?=number_format($valDescuento,'1',',','.')?></td>
             </tr>
           <?php
         }
         ?>
         <tr>
           <td colspan="2"></td>
-          <th colspan="2">TOTAL</th>
-          <td align="right"><?=number_format($factura->total,'1',',','.')?></td>
+          <th colspan="1">TOTAL</th>
+          <td align="right">$<?=number_format($factura->total,'1',',','.')?></td>
         </tr>
        
    </table>

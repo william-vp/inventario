@@ -24,6 +24,7 @@ class CreateFacturasTable extends Migration
             $table->integer('descuento');
             $table->integer('iva');
             $table->float('total',11,2);
+            $table->string('estado')->nullable();
             $table->timestamps();
         });
         Schema::table('facturas', function($table)

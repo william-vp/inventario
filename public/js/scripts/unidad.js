@@ -39,9 +39,35 @@ $(document).on('click', ".btnSave", function () {
     });
 });
 
-
-
 //store
+$('.modal-footer').on('click', ".add", function () {
+    if ($('#nombre_add').val() == '' || $('#nombre_add').val() == null ) {
+        toastr.error('Complete el campo.', 'Error', {timeOut: 3000});
+        $('#nombre_add').focus();
+        return false;
+    }
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: 'unidades_medida',
+        type: 'POST',
+        data: {
+            '_token': $('input[name=_token]').val(),
+            'nombre': $('#nombre_add').val(),
+        },
+        success: function (data) {
+            if (data == 'exito'){
+                toastr.success('Unidad de medida ingresada.', 'Correcto', {timeOut: 3000});
+                location.reload();
+            }else {
+                toastr.error('Ha ocurrido un error ingresando Unidad de medida. Intente de nuevo.', 'Error', {timeOut: 3000});
+                return false;
+            }
+
+        }
+    });
+});
 $('.modal-footer').on('click', ".add", function () {
     if ($('#nombre_add').val() == '' || $('#nombre_add').val() == null ) {
         toastr.error('Complete el campo.', 'Error', {timeOut: 3000});

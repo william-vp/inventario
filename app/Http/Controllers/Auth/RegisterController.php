@@ -44,7 +44,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm(){
         $general= General::orderBy('id','ASC')->get()->last();      
-        return view("Auth.register")->with("datos",$general);
+        return view("auth.register")->with("datos",$general);
     }
 
     /**

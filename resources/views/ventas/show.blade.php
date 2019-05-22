@@ -31,6 +31,7 @@
         }
 
     </style>
+
     <h4 class="text-primary mB-20 text-center">INFORMACIÓN VENTA {{ $factura->id }}</h4>
     <div class="text-left container mb-3 p-0">
         <a class="btn btn-outline-primary" href="{{ URL::previous() }}"><i class="ti-arrow-left"></i> Volver</a>
@@ -115,10 +116,23 @@
 		                                     </div>
                                          @endif
 
-                                        <div class="col-md-2 divNoCredito">
-                                        	<label>Visualizar Factura</label>
-                                         	<a class="btn btn-outline-success" target="_blank" href="{{ route('factura.view', $factura->id) }}"><i class="ti-eye"></i> Ver Factura</a>
-                                     	</div>
+                                        @if ( $factura->estado !== "ANULADA")
+                                            <div class="col-md-2 divNoCredito">
+                                                <label>Visualizar Factura</label>
+                                                <a class="btn btn-outline-success" target="_blank" href="{{ route('factura.view', $factura->id) }}"><i class="ti-eye"></i> Ver Factura</a>
+                                            </div>
+
+                                            <div class="col-md-2 divNoCredito">
+                                                <label> </label>
+                                                <a class="btn btn-outline-danger btnAnular" data-id="{{ $factura->id }}" href="#"><i class="ti-close"></i> Anular Factura</a>
+                                            </div>
+                                         @else
+                                            <div class="col-md-2">
+                                                <label>Estado</label>
+                                                <span class="btn btn-danger" href="#"><i class="ti-close"></i> FACTURA ANULADA</span>
+                                                <span class="text-muted">{{ $factura->updated_at }}</span>
+                                            </div>
+                                        @endif
 
                                     </div>
                                     <hr>
@@ -173,8 +187,6 @@
                                     </tr>
                                     @endif
 
-
-
                                 	<tr>
                                 		<td colspan="5"></td>    
                                 		<td><strong>TOTAL</strong></td>
@@ -198,6 +210,7 @@
     </div>
 
     <script src="{{asset('js/scripts/venta.js')}}"></script>
+    <script src="{{ asset('js/sweetalert.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript">  
         $('#tablaProductos').dataTable({
             "order": [[1, "asc"]]

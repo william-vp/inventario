@@ -656,3 +656,35 @@ function crearCredito() {
         document.getElementById("btnCollapseCredito").text = "Ocultar";
         document.getElementById("btnCollapseCredito").className = "btn btn-danger text-white";
     });
+
+$(document).on('click', ".btnAnular", function () {
+    var codigo= $(this).data('id');
+    swal({
+        title: "Anular Factura",
+        text: "Estas a punto de anular la factura: "+codigo,
+        icon: "error",
+        //buttons: true,
+        dangerMode: true,
+        closeOnClickOutside: true,
+        buttons: ["Cancelar", "Continuar"],
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '/ventas/{id}/anular',
+                type: 'POST',
+                data: 'id=' + codigo,
+                success: function (data) {
+                    if (data === 'ok'){
+                        toastr.success('<strong>La Factura ha sido anulada correctamente.</strong>', 'Hecho', {timeOut: 6000});
+                        location.reload();
+                    }else{
+                        toastr.error('<strong>No es posible anular esta factura. Intente nuevamente</strong>', 'Error', {timeOut: 6000});
+                    }
+                }
+            });
+        }
+    });
+});

@@ -4,6 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Product::class, function (Faker $faker) {
     return [
+        'id' => $faker->ean13,
         'nombre' => $faker->name,
         'descripcion' => $faker->name,
         'precio_compra' => $faker->numberBetween( $min= 1000.00, $max= 100000.00),

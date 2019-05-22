@@ -6,14 +6,16 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title> {{session('app_name')}} | @yield('title', 'Inicio') </title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/toastr.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/buttons.dataTables.min.css') }}">
+    <link rel="icon" href="{{ Storage::url(session('app_logo')) }}"/>
+
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/toastr.js') }}"></script>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/toastr.css') }}">
-    <link rel="icon" href="{{ Storage::url(session('app_logo')) }}"/>
+    <script src="{{ asset('js/dataTables.buttons.min.js') }}"></script>
 
     <script type="text/javascript">
       $(document).ready(function(){
-
         $('#tdarrow').on('click', function () {
             if ($(".tdmob").is(":visible") == true){
               $(".tdmob").hide();
@@ -23,7 +25,6 @@
               document.getElementById("icontdarrow").className= "ti-arrow-circle-up";
             }
         });
-      
 
        $('.sidebar .sidebar-menu li a').on('click', function () {
         const $this = $(this);
@@ -98,7 +99,6 @@
 
        }); 
     </script>
-
     <style>
       #loader {
         transition: all 0.3s ease-in-out;
@@ -365,13 +365,22 @@
                       </a>
                       <ul class="dropdown-menu">
                         <li>
-                          <a class='sidebar-link' href="{{ url('/reportes/productos_mas_vendidos') }}"><i class="ti-bar-chart-alt"></i> Productos más vendidos</a>
+                            <a class='sidebar-link' href="{{ url('/reportes/productos_mas_vendidos') }}"><i class="ti-bar-chart-alt"></i> Productos más vendidos</a>
                         </li>
                         <li>
-                          <a class='sidebar-link' href="{{ url('/reportes/ventas_creditos') }}"><i class="ti-shopping-cart"></i> Ventas / Creditos</a>
+                            <a class='sidebar-link' href="{{ url('/reportes/productos_menos_vendidos') }}"><i class="ti-bar-chart"></i> Productos menos vendidos</a>
+                        </li>
+                      <li>
+                          <a class='sidebar-link' href="{{ url('/reportes/ventas_mes') }}"><i class="ti-agenda"></i> Ventas del mes</a>
+                      </li>
+                        <li>
+                          <a class='sidebar-link' href="{{ url('/reportes/utilidad_productos') }}"><i class="ti-clipboard"></i> Utilidad de productos Vendidos</a>
                         </li>
                         <li>
-                          <a class='sidebar-link' href="{{ url('/reportes/cajas') }}"><i class="ti-calendar"></i> Historial Cajas</a>
+                            <a class='sidebar-link' href="{{ url('/reportes/ventas_creditos') }}"><i class="ti-shopping-cart"></i> Ventas / Creditos</a>
+                        </li>
+                        <li>
+                            <a class='sidebar-link' href="{{ url('/reportes/cajas') }}"><i class="ti-calendar"></i> Historial Cajas</a>
                         </li>
 
                       </ul>

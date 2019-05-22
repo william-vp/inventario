@@ -44,11 +44,15 @@
                 <td>{{$factura->caja_id}}</td>
 
                 <td>
+                    @if ($factura->estado === "ANULADA")
+                        <span class="badge badge-danger" data-toggle="tooltip" title="Esta Venta ha sido anulada">ANULADA</span><br>
+                        <span class="text-muted">{{ $factura->updated_at }}</span>
+                    @else
                     <!--<a href="route('ventas.destroy', $factura->id) }}"  data-toggle="tooltip" title="Eliminar venta"  onclick="return confirm('¿Seguro quieres eliminar esta Factura?')" class="btn btn-danger"><i class="ti-trash"></i></a>-->
                     <a href="{{ route('factura.detalles', $factura->id) }}"  data-toggle="tooltip" title="Información de la venta"  class="btn btn-info"><i class="ti-info text-white"></i></a>
                     <a href="{{ route('factura.view', $factura->id) }}"  data-toggle="tooltip" title="Visualizar Factura"  class="btn btn-success" target="_blank"><i class="ti-eye"></i></a>
                 <!--<a href="crear_reporte_producto/2" target="_blank" ><button class="btn btn-block btn-success btn-xs">Descargar</button>-->
-
+                    @endif
                 </td>
             </tr>
         @endforeach

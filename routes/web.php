@@ -81,7 +81,10 @@ Route::group(['middleware' => 'admin'], function () {
 
     //REPORTES
     Route::get('/reportes/productos_mas_vendidos', ['as' => 'reportes.r1', 'uses' => 'ChartController@productos_mas_vendidos'])->middleware('auth');
-    Route::get('/reportes/ventas_creditos', ['as' => 'reportes.r2', 'uses' => 'ChartController@ventas_creditos'])->middleware('auth');
+    Route::get('/reportes/productos_menos_vendidos', ['as' => 'reportes.r2', 'uses' => 'ChartController@productos_menos_vendidos'])->middleware('auth');
+    Route::get('/reportes/ventas_creditos', ['as' => 'reportes.r4', 'uses' => 'ChartController@ventas_creditos'])->middleware('auth');
+    Route::get('/reportes/ventas_mes', ['as' => 'reportes.r5', 'uses' => 'ChartController@ventas_mes'])->middleware('auth');
+    Route::get('/reportes/utilidad_productos', ['as' => 'reportes.r6', 'uses' => 'ChartController@utilidad_productos'])->middleware('auth');
     Route::get('/reportes/cajas', ['as' => 'reportes.r3', 'uses' => 'ChartController@cajas'])->middleware('auth');
     Route::get('/reportes/filtrarProductos', ['as' => 'reportes.4', 'uses' => 'ChartController@filtrar_productos'])->middleware('auth');
 
@@ -113,6 +116,7 @@ Route::group(['middleware' => 'admvend'], function () {
     Route::post('/ventas/store', ['as' => 'ventas.store', 'uses' => 'FacturaController@store'])->middleware('auth');
     Route::post('/ventas/storeCredit', ['as' => 'ventas.store', 'uses' => 'CreditoController@store'])->middleware('auth');
     Route::get('/ventas/{id}/destroy', ['as' => 'ventas.destroy', 'uses' => 'FacturaController@destroy'])->middleware('auth');
+    Route::post('/ventas/{id}/anular', ['as' => 'ventas.anular', 'uses' => 'FacturaController@anular'])->middleware('auth');
     Route::post('/ventas/addProduct', ['as' => 'ventas.addProduct', 'uses' => 'TempProductsController@addProduct'])->middleware('auth');
     Route::post('/ventas/removeAll', ['as' => 'ventas.removeAll', 'uses' => 'TempProductsController@removeAll'])->middleware('auth');
     Route::post('/ventas/removeProduct', ['as' => 'ventas.removeProduct', 'uses' => 'TempProductsController@removeProduct'])->middleware('auth');

@@ -17,7 +17,7 @@ class CreateDetallesPedidosTable extends Migration
             $table->increments('id');
             $table->integer('cantidad');
             $table->float('valor_unitario',11,2);
-            $table->integer('producto_id')->unsigned();
+            $table->bigInteger('producto_id')->unsigned();
             $table->integer('pedido_id')->unsigned();
             $table->timestamps();
 

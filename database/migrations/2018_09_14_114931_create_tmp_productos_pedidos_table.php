@@ -15,7 +15,7 @@ class CreateTmpProductosPedidosTable extends Migration
     {
         Schema::create('tmp_productos_pedidos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('producto_id')->unsigned();
+            $table->bigInteger('producto_id')->unsigned();
             $table->float('precio',11,2);
             $table->integer('cantidad');
             $table->integer('user_id')->unsigned();

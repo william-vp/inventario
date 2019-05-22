@@ -1,5 +1,3 @@
-
-
 import './popover';
 import './datatable';
 import './search';

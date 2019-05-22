@@ -15,7 +15,7 @@ class CreateTempProductsTable extends Migration
     {
         Schema::create('temp_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('producto_id')->unsigned();
+            $table->bigInteger('producto_id')->unsigned();
             $table->float('precio',11,2);
             $table->integer('cantidad');
             $table->integer('caja_id');

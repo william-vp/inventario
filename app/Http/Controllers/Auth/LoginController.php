@@ -47,7 +47,7 @@ class LoginController extends Controller
 
     public function showLoginForm(){
         $general= General::orderBy('id','ASC')->get()->last();
-        return view("Auth.login")->with("datos",$general);
+        return view("auth.login")->with("datos",$general);
     }
 
     /**

@@ -20,7 +20,7 @@ class FacturaController extends Controller
      */
     public function index()
     {
-        $facturas = Factura::select('facturas.id','facturas.fecha','facturas.forma_pago','facturas.caja_id','facturas.cliente_id','clientes.nombre')
+        $facturas = Factura::select('facturas.id','facturas.estado','facturas.updated_at','facturas.fecha','facturas.forma_pago','facturas.caja_id','facturas.cliente_id','clientes.nombre')
             ->join('clientes', 'clientes.id','=','facturas.cliente_id')
             ->orderBy('id','ASC')->get();
 
@@ -93,6 +93,7 @@ class FacturaController extends Controller
         $factura->descuento= $request->descuento;
         $factura->iva= $request->iva;
         $factura->total= $request->total;
+        $factura->estado= "PAGADA";
 
         if ($factura->save()){
             for ($i= 0; $i < count($idProductos); $i++ ){
@@ -126,7 +127,7 @@ class FacturaController extends Controller
      */
     public function show($id)
     {
-        $factura = Factura::select('facturas.id','facturas.fecha','facturas.forma_pago','facturas.observacion','facturas.subtotal','facturas.iva','facturas.total','facturas.caja_id','facturas.descuento','facturas.cliente_id','clientes.nombre as nombreCliente','clientes.telefono','clientes.direccion')
+        $factura = Factura::select('facturas.id', 'facturas.estado','facturas.updated_at','facturas.fecha','facturas.forma_pago','facturas.observacion','facturas.subtotal','facturas.iva','facturas.total','facturas.caja_id','facturas.descuento','facturas.cliente_id','clientes.nombre as nombreCliente','clientes.telefono','clientes.direccion')
             ->join('clientes', 'clientes.id','=','facturas.cliente_id')
             ->where('facturas.id','=',$id)
             ->orderBy('id','DESC')->firstOrFail();
@@ -192,5 +193,27 @@ class FacturaController extends Controller
         }
 
         return back()->with($notification);
+    }
+
+    public function anular(Request $request){
+        $factura= Factura::Find($request->id);
+        //$factura->estado= "ANULADA";
+
+        $productos= Detalle::select('products.id', 'detalles.id as dId','products.nombre','categorias.impuesto','products.categoria_id','detalles.producto_id','detalles.cantidad','detalles.valor_unitario','detalles.valor_total')
+            ->join('products', 'products.id','=','detalles.producto_id')
+            ->join('categorias', 'categorias.id','=','products.categoria_id')
+            ->where('detalles.factura_id','=',$request->id)->get();
+        foreach($productos as $producto){
+            echo $ids[]=$producto->dId;
+        }
+        //$eliminados= Detalle::destroy($ids);
+
+        if ($factura->save()){
+            return ("ok");
+        }else{
+            return ("error");
+        }
+
+
     }
 }
