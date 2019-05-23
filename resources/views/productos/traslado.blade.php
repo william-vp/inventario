@@ -7,34 +7,35 @@
     <div class="text-left container mb-3 p-0">
         <a class="btn btn-outline-primary" href="{{ url('/productos') }}"><i class="ti-arrow-left"></i> Volver</a>
     </div>
-
+    <form enctype="multipart/form-data" type="put" id="formTransladoProducto" name="formTransladoProducto">
     <div class="container p-0" align="center">
 
-    <form enctype="multipart/form-data" type="put" id="formTransladoProducto" name="formTransladoProducto"> 
+
         <div class="row">
             <input type="hidden" value="{{ csrf_token() }}" name="_token">
+            <input type="hidden" value="{{ $producto->bodega_id }}" id="bodega_traslado">
 
             <div class="col-md-3">
-                <label class="text-primary font-weight-bold">Imagen Producto (opcional)</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Imagen Producto (opcional)</label>
                     <img width="100" src="{{ Storage::url($producto->imagen) }}" alt="imagen">
             </div>
 
             <div class="col-md-2">
-                <label class="text-primary font-weight-bold">Código de Producto:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Código de Producto:</label>
                 <div class="input-group">
                     <input placeholder="Id del Producto" disabled value="{{ $producto->id }}" type="text" class="form-control" name="id"  id="id_edit" autofocus>
                 </div>
             </div>
 
             <div class="col-md-3">
-                <label class="text-primary font-weight-bold">Nombre:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Nombre:</label>
                 <div class="input-group">
                     <input placeholder="Nombre del Producto" disabled value="{{ $producto->nombre }}" type="text" class="form-control" name="nombre"  id="nombre_edit" autofocus>
                 </div>
             </div>
 
             <div class="col-md-3">
-                <label class="text-primary font-weight-bold">Estado del Producto:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Estado del Producto:</label>
                 <div class="input-group">
                     <select id="estado_edit" disabled name="estado" class="form-control">
                         @if ($producto->estado == 1)
@@ -54,7 +55,14 @@
         <?php $total= $producto->mostrador + $producto->existencias; ?>
         <div class="row mt-4">
             <div class="col-md-2">
-                <label class="text-primary font-weight-bold">Cantidad Total:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Código Bodega:</label>
+                <div class="input-group">
+                    <input disabled value="{{ $producto->bodega_id }}" type="number" class="form-control text-center" autofocus>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <label class="text-primary font-weight-bold">Cantidad Total:</label>
                 <div class="input-group">
                     <input disabled value="{{ $total }}" type="number" class="form-control text-center" autofocus>
                 </div>
@@ -72,7 +80,7 @@
             <input type="hidden" id="nombre_producto" value="{{$producto->nombre}}">
 
             <div class="col-md-3">
-                <label class="text-primary font-weight-bold">Cantidad Mostrador:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Cantidad Mostrador:</label>
                 <div class="input-group">
                     <span class="input-group-btn"><button class="btn btn-default btnplus1" type="button"><i class="fa fa-plus"></i></button></span>
                     <input placeholder="Cantidad en Mostrador" name="mostrador" type="number" value="{{ $producto->mostrador }}"  class="form-control text-center" id="cantidadm_edit" autofocus>
@@ -83,7 +91,7 @@
             </div>
 
             <div class="col-md-3">
-                <label class="text-primary font-weight-bold">Cantidad Bodega:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Cantidad Bodega:</label>
                 <div class="input-group">
                     <span class="input-group-btn">
                         <button class="btn btn-default btnplus2" type="button"><i class="fa fa-plus"></i></button></span>
@@ -107,9 +115,10 @@
             </div>
         </div>
         @endif
+
     </form>
         
-    </div>
+
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap-select.css') }}">
     <script src="{{ asset('js/bootstrap-select.js') }}"></script>

@@ -17,9 +17,9 @@ $(document).on('click', ".btnProduct", function () {
         "hideMethod": "fadeOut"
     }
 
-    if ($('#id_add').val() == '' ) {
-        toastr.error('Complete el campo: Id de Producto', 'Error', {timeOut: 3000});
-        $('#id_add').focus();
+    if ($('#codigo_add').val() == '' ) {
+        toastr.error('Complete el campo: Código de Producto', 'Error', {timeOut: 3000});
+        $('#codigo_add').focus();
         return false;
     }else if ($('#nombre_add').val() == '' ) {
         toastr.error('Complete el campo: Nombre de Producto', 'Error', {timeOut: 3000});
@@ -32,6 +32,10 @@ $(document).on('click', ".btnProduct", function () {
     }else if ($('#preciov_add').val() == '' ) {
         toastr.error('Complete el campo: Precio de Venta', 'Error', {timeOut: 3000});
         $('#preciov_add').focus();
+        return false;
+    }else if ($('#bodega_add').val() == null ) {
+        toastr.error('Complete el campo: Bodega', 'Error', {timeOut: 3000});
+        $('#bodega_add').focus();
         return false;
     }else if ($('#cantidadm_add').val() == '') {
         toastr.error('Complete el campo: Cantidad en Mostrador', 'Error', {timeOut: 3000});
@@ -101,12 +105,13 @@ $(document).on('click', ".btnProduct", function () {
                     "hideMethod": "fadeOut"
                 }
                 toastr.success('Producto Ingresado.', 'Correcto', {timeOut: 3000});
-                location.href= '/productos/?search='+$('#nombre_add').val();
+                location.href= '/productos/?search='+$('#nombre_add').val()+'&bodega='+$('#bodega_add').val();
             }else if (data == 'dup'){
                 toastr.warning('Este nombre de producto ya esta registrado.', 'Error', {timeOut: 3000});
                 return false;
             }else if (data == 'dup2'){
-                toastr.warning('Este Id de producto ya esta en uso.', 'Error', {timeOut: 3000});
+                toastr.warning('Este Código de producto ya esta en uso.', 'Error', {timeOut: 3000});
+                $("#codigo_add").focus();
                 return false;
             }else {
                 toastr.error('Ha ocurrido un error ingresando el producto. Intente de nuevo.', 'Error', {timeOut: 3000});
@@ -135,9 +140,9 @@ $(document).on('click', ".btnUpdate", function () {
         "hideMethod": "fadeOut"
     }
 
-    if ($('#id_edit').val() == '' ) {
-        toastr.error('Complete el campo: Id de Producto', 'Error', {timeOut: 3000});
-        $('#id_edit').focus();
+    if ($('#codigo_edit').val() == '') {
+        toastr.error('Complete el campo: Código de Producto', 'Error', {timeOut: 3000});
+        $('#codigo_edit').focus();
         return false;
     }else if ($('#nombre_edit').val() == '' ) {
         toastr.error('Complete el campo: Nombre de Producto', 'Error', {timeOut: 3000});
@@ -150,6 +155,10 @@ $(document).on('click', ".btnUpdate", function () {
     }else if ($('#preciov_edit').val() == '' ) {
         toastr.error('Complete el campo: Precio de Venta', 'Error', {timeOut: 3000});
         $('#preciov_edit').focus();
+        return false;
+    }else if ($('#bodega_edit').val() == null ) {
+        toastr.error('Complete el campo: Bodega', 'Error', {timeOut: 3000});
+        $('#bodega_edit').focus();
         return false;
     }else if ($('#cantidadm_edit').val() == '') {
         toastr.error('Complete el campo: Cantidad en Mostrador', 'Error', {timeOut: 3000});
@@ -195,20 +204,6 @@ $(document).on('click', ".btnUpdate", function () {
         url: 'update',
         type: 'POST',
         data: formDataUpdate,
-        /*data: {
-            '_token': $('input[name=_token]').val(),
-            'nombre': $('#nombre_edit').val(),
-            'precio_compra': $('#precioc_edit').val(),
-            'precio_venta': $('#preciov_edit').val(),
-            'mostrador': $('#cantidadm_edit').val(),
-            'existencias': $('#cantidadb_edit').val(),
-            'fecha': $('#fecha_edit').val(),
-            'categoria_id': $('#categoria_edit').val(),
-            'unidad_id': $('#unidad_edit').val(),
-            'descripcion': $('#descripcion_edit').val(),
-            'imagen': $('#imagen_edit').val(),
-            'estado': $('#estado_edit').val(),
-        },*/
         cache:false,
         contentType: false,
         processData: false,
@@ -217,7 +212,7 @@ $(document).on('click', ".btnUpdate", function () {
         },
         success: function (data) {
 
-            if (data == 'exito'){
+            if (data === 'exito'){
                 toastr.options = {
                     "closeButton": false,
                     "debug": false,
@@ -235,12 +230,14 @@ $(document).on('click', ".btnUpdate", function () {
                     "hideMethod": "fadeOut"
                 }
                 toastr.success('Producto Actualizado.', 'Correcto', {timeOut: 3000});
-                location.href= '/productos/?search='+$('#nombre_edit').val();
-            }else if (data == 'dup'){
-                toastr.warning('Este Id de producto ya esta registrado.', 'Error', {timeOut: 3000});
+                location.href= '/productos/?search='+$('#nombre_edit').val()+'&bodega='+$('#bodega_edit').val();
+            }else if (data === 'dup'){
+                toastr.warning('Este Código de producto ya esta registrado con otro producto.', 'Error', {timeOut: 3000});
+                $('#codigo_edit').focus();
                 return false;
-            }else if (data == 'dup2'){
+            }else if (data === 'dup2'){
                 toastr.warning('Este Nombre de producto ya esta en uso.', 'Error', {timeOut: 3000});
+                $('#nombre_edit').focus();
                 return false;
             }else {
                 toastr.error('Ha ocurrido un error actualizando el producto. Intente de nuevo.', 'Error', {timeOut: 3000});
@@ -337,8 +334,6 @@ $(document).on('change', "#cantidadm_edit", function () {
     $('.btnTraslado').show();
 });
 
-
-
 //bodega
 $(document).on('click', ".btnplus2", function () {
     var existente= $("#cantExist").val();
@@ -420,8 +415,6 @@ $(document).on('change', "#cantidadb_edit", function () {
     $('.btnTraslado').show();
 });
 
-
-
 //traslado
 $(document).on('click', ".btnTraslado", function () {
     toastr.options = {
@@ -482,7 +475,7 @@ $(document).on('click', ".btnTraslado", function () {
                     "hideMethod": "fadeOut"
                 }
                 toastr.success('Traslado de Producto Realizado Exitosamente.', 'Correcto', {timeOut: 3000});
-                location.href= '/productos/?search='+$('#nombre_producto').val();
+                location.href= '/productos/?search='+$('#nombre_producto').val()+'&bodega='+$('#bodega_traslado').val();
             }else {
                 toastr.error('Ha ocurrido un error realizando el traslado del producto. Intente de nuevo.', 'Error', {timeOut: 3000});
                 return false;

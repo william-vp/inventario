@@ -10,6 +10,7 @@ $factory->define(App\Credito::class, function (Faker $faker) {
         'caja_id' =>  \App\Caja::all()->random()->id,
         'subtotal' => $faker->numberBetween( $min= 1000.00, $max= 100000.00),
         'iva' => '0',
-        'total' => $faker->numberBetween( $min= 1000.00, $max= 100000.00)
+        'total' => $faker->numberBetween( $min= 1000.00, $max= 100000.00),
+        'estado' => $faker->boolean,
     ];
 });

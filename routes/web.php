@@ -22,6 +22,7 @@ Route::group(['middleware' => 'admin'], function () {
 
     //PRODUCTOS
     Route::get('/productos', ['as' => 'productos.index', 'uses' => 'ProductController@index'])->middleware('auth');
+    Route::post('/getProductsBodega', ['as' => 'getProductsBodega', 'uses' => 'ProductController@getProductsBodega'])->middleware('auth');
     Route::get('/productos/create', ['as' => 'productos.create', 'uses' => 'ProductController@create'])->middleware('auth');
     Route::post('/productos/', ['as' => 'productos.store', 'uses' => 'ProductController@store'])->middleware('auth');
     Route::get('/productos/{id}/destroy', ['as' => 'productos.destroy', 'uses' => 'ProductController@destroy'])->middleware('auth');
@@ -36,6 +37,12 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/unidades_medida/{id}/destroy', ['as' => 'unidades.destroy', 'uses' => 'UnidadMedidaController@destroy'])->middleware('auth');
     Route::put('/unidades_medida/{id}/update', ['as' => 'unidades.update', 'uses' => 'UnidadMedidaController@update'])->middleware('auth');
     Route::post('/unidades_medida/', 'UnidadMedidaController@store');
+
+    //BODEGAS
+    Route::get('/bodegas', ['as' => 'bodegas.index', 'uses' => 'BodegaController@index'])->middleware('auth');
+    Route::put('/bodegas/{id}/update', ['as' => 'bodegas.update', 'uses' => 'BodegaController@update'])->middleware('auth');
+    Route::get('/bodegas/{id}/destroy', ['as' => 'bodegas.destroy', 'uses' => 'BodegaController@destroy'])->middleware('auth');
+    Route::post('/bodegas/', 'BodegaController@store')->middleware('auth');
 
     //CATEGORIAS
     Route::get('/categorias', ['as' => 'categorias.index', 'uses' => 'CategoriaController@index'])->middleware('auth');

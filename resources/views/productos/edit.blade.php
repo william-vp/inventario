@@ -6,7 +6,7 @@
 
     <div class="text-left container mb-3 p-0">
         <a class="btn btn-outline-primary" href="{{ url('/productos') }}"><i class="ti-arrow-left"></i> Volver</a>
-        <a class="btn btn-outline-primary" href="{{ route('productos.traslado', $producto->id) }}"><i class="ti-exchange-vertical text-white"></i> Realizar Traslado</a>
+        <a class="btn btn-outline-primary" href="{{ route('productos.traslado', $producto->id) }}"><i class="ti-exchange-vertical text-danger"></i> Realizar Traslado</a>
     </div>
 
     <div class="container p-0" align="center">
@@ -16,7 +16,7 @@
             <input type="hidden" value="{{ csrf_token() }}" name="_token">
 
             <div class="col-md-3">
-                <label class="text-primary font-weight-bold">Imagen Producto (opcional)</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Imagen Producto (opcional)</label>
                     <img width="100" src="{{ Storage::url($producto->imagen) }}" alt="imagen">
                 <div class="input-group">
                     <input type="file" name="imagen"  data-toggle="tooltip" title="Cambiar Imagen."  class="form-control" id="imagen_edit">
@@ -24,14 +24,14 @@
             </div>
 
             <div class="col-md-2">
-                <label class="text-primary font-weight-bold">Código de Producto:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Código de Producto:</label>
                 <div class="input-group">
-                    <input placeholder="Id del Producto" value="{{ $producto->id }}" type="text" class="form-control" name="id"  id="id_edit" autofocus>
+                    <input placeholder="Código del Producto" value="{{ $producto->codigo }}" type="text" class="form-control" name="codigo"  id="codigo_edit" autofocus>
                 </div>
             </div>
 
             <div class="col-md-3">
-                <label class="text-primary font-weight-bold">Nombre:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Nombre:</label>
                 <div class="input-group">
                     <input placeholder="Nombre del Producto" value="{{ $producto->nombre }}" type="text" class="form-control" name="nombre"  id="nombre_edit" autofocus>
                 </div>
@@ -42,28 +42,43 @@
         <div class="row mt-4">
 
             <div class="col-md-2">
-                <label class="text-primary font-weight-bold"><i class="ti-money"></i> Precio Compra:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold"><i class="ti-money"></i> Precio Compra:</label>
                 <div class="input-group">
                     <input placeholder="Precio de compra" name="precio_compra" value="{{ $producto->precio_compra }}"  type="number" class="form-control" id="precioc_edit" autofocus>
                 </div>
             </div>
 
             <div class="col-md-2">
-                <label class="text-primary font-weight-bold"><i class="ti-money"></i> Precio Venta:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold"><i class="ti-money"></i> Precio Venta:</label>
                 <div class="input-group">
                     <input placeholder="Precio de Venta" name="precio_venta" type="number" value="{{ $producto->precio_venta }}"  class="form-control" id="preciov_edit" autofocus>
                 </div>
             </div>
 
+            <div class="col-md-3">
+                <label for="bodega_edit" class="text-primary font-weight-bold">Bodega:</label>
+                <div class="input-group">
+                    <select class="form-control" data-live-search="true" name="bodega_id" id="bodega_edit">
+                        @foreach(\App\Bodega::all() as $bodega)
+                            @if ($bodega->id === $producto->bodega_id)
+                            <option selected data-tokens="{{$bodega->nombre}}" value="{{ $bodega->id }}"><strong>{{ $bodega->id }}</strong>: {{ $bodega->nombre }}</option>
+                            @else
+                            <option data-tokens="{{$bodega->nombre}}" value="{{ $bodega->id }}"><strong>{{ $bodega->id }}</strong>: {{ $bodega->nombre }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
             <div class="col-md-2">
-                <label class="text-primary font-weight-bold">Cantidad en Mostrador:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Cantidad en Mostrador:</label>
                 <div class="input-group">
                     <input placeholder="Cantidad en Mostrador" disabled name="mostrador" value="{{ $producto->mostrador }}"  type="number" class="form-control" id="cantidadm_edit" autofocus>
                 </div>
             </div>
 
             <div class="col-md-2">
-                <label class="text-primary font-weight-bold">Cantidad Bodega:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Cantidad Bodega:</label>
                 <div class="input-group">
                     <input placeholder="Cantidad en Bodega" disabled name="existencias" type="number" value="{{ $producto->existencias }}"  class="form-control" id="cantidadb_edit" autofocus>
                 </div>
@@ -73,14 +88,14 @@
         <div class="row mt-4">
 
             <div class="col-md-3">
-                <label class="text-primary font-weight-bold">Fecha Vencimiento:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Fecha Vencimiento:</label>
                 <div class="input-group">
                     <input type="text"  style="border: 1px solid #ccc; border-radius: 0px;"  class="form-control datepicker" name="vencimiento" value="{{ $producto->vencimiento }}"  id="fecha_edit" autofocus>
                 </div>
             </div>
 
             <div class="col-md-3">
-                <label class="text-primary font-weight-bold">Categoria/tipo Producto:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Categoria/tipo Producto:</label>
                 <div class="input-group">
                     <select class="form-control" name="categoria_id" data-live-search="true" id="categoria_edit">
                         <option selected disabled>Seleccione...</option>
@@ -96,7 +111,7 @@
             </div>
 
             <div class="col-md-3">
-                <label class="text-primary font-weight-bold">Unidad de Medida Producto:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Unidad de Medida Producto:</label>
                 <div class="input-group">
                     <select id="unidad_edit" name="medida_id" class="form-control" data-live-search="true">
                         <option selected disabled>Seleccione...</option>
@@ -112,7 +127,7 @@
             </div>
 
             <div class="col-md-3">
-                <label class="text-primary font-weight-bold">Estado del Producto:</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Estado del Producto:</label>
                 <div class="input-group">
                     <select id="estado_edit" name="estado" class="form-control">
                         @if ($producto->estado == 1)
@@ -130,7 +145,7 @@
         </div>
         <div class="row mt-4">
             <div class="col-md-5">
-                <label class="text-primary font-weight-bold">Descripción Producto (opcional)</label class="text-primary font-weight-bold">
+                <label class="text-primary font-weight-bold">Descripción Producto (opcional)</label>
                 <div class="input-group">
                     <textarea name="descripcion" placeholder="Descripción del producto" id="descripcion_edit" cols="30" rows="10" style="max-width: 100%; height: 50px; max-height: 150px;" class="form-control">{{$producto->descripcion}}</textarea>
                 </div>

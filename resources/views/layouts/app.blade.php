@@ -326,6 +326,9 @@
                         <li>
                           <a class='sidebar-link' href="{{ url('/productos') }}"><i class="ti-view-list-alt"></i> Ver Productos</a>
                         </li>
+                      <li>
+                          <a class='sidebar-link' href="{{ url('/bodegas') }}"><i class='ti-harddrives'></i> Bodegas</a>
+                      </li>
                         <li>
                             <a class='sidebar-link' href="{{ url('/unidades_medida') }}"><i class='ti-tag'></i> Unidades de medida</a>
                         </li>
@@ -830,6 +833,7 @@
   </body>
 
   <script>
+      $('[data-toggle="tooltip"]').tooltip();
       toastr.options = {
           "closeButton": false,
           "debug": false,
@@ -863,6 +867,5 @@
               break;
       }
     @endif
-    $('[data-toggle="tooltip"]').tooltip();
   </script>
 </html>

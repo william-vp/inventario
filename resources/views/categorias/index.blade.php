@@ -85,7 +85,7 @@
                         <p class="alert alert-danger" id="erroresCategoria" style="border-radius: 0px; display: none; padding: 4px;"></p>
                     </form>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success add" data-dismiss="modal">
+                        <button type="button" class="btn btn-success add">
                             <span id="" class='glyphicon glyphicon-check'></span> Ingresar
                         </button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">

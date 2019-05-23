@@ -21,7 +21,7 @@ input{
                 <input type="hidden" value="{{ csrf_token() }}" name="_token">
             <div class="row">
                 <div class="col-md-3">
-                    <label class="text-primary font-weight-bold"><i class="ti-image"></i> Imagen Producto (opcional)</label class="text-primary font-weight-bold">
+                    <label class="text-primary font-weight-bold"><i class="ti-image"></i> Imagen Producto (opcional)</label>
                         <img width="100" src="{{ Storage::url('public/product.png') }}" alt="">
                         <div class="input-group col-sm-12">
                             <span class="btn btn-default btn-file">
@@ -31,14 +31,14 @@ input{
                 </div>
 
                 <div class="col-md-2">
-                    <label class="text-primary font-weight-bold">Código Producto:</label class="text-primary font-weight-bold">
+                    <label class="text-primary font-weight-bold">Código Producto:</label>
                     <div class="input-group">
-                        <input placeholder="Id del Producto" type="text" class="form-control" name="id" id="id_add" autofocus>
+                        <input placeholder="Código del Producto" type="text" class="form-control" name="codigo" id="codigo_add" autofocus>
                     </div>
                 </div>
 
                 <div class="col-md-3">
-                    <label class="text-primary font-weight-bold">Nombre:</label class="text-primary font-weight-bold">
+                    <label class="text-primary font-weight-bold">Nombre:</label>
                     <div class="input-group">
                         <input placeholder="Nombre del Producto" type="text" class="form-control" name="nombre" id="nombre_add" autofocus>
                     </div>
@@ -46,28 +46,40 @@ input{
             </div>
             <div class="row mt-4">
                 <div class="col-md-2">
-                    <label class="text-primary font-weight-bold">Precio Compra:</label class="text-primary font-weight-bold">
+                    <label class="text-primary font-weight-bold">Precio Compra:</label>
                     <div class="input-group">
                         <input placeholder="Precio de compra" type="number" class="form-control" name="precio_compra" id="precioc_add" autofocus>
                     </div>
                 </div>
 
                 <div class="col-md-2">
-                    <label class="text-primary font-weight-bold">Precio Venta:</label class="text-primary font-weight-bold">
+                    <label class="text-primary font-weight-bold">Precio Venta:</label>
                     <div class="input-group">
                         <input placeholder="Precio de Venta" type="number" class="form-control" name="precio_venta" id="preciov_add" autofocus>
                     </div>
                 </div>
 
+                <div class="col-md-3">
+                    <label for="bodega_add" class="text-primary font-weight-bold">Bodega:</label>
+                    <div class="input-group">
+                        <select class="form-control" data-live-search="true" name="bodega_id" id="bodega_add">
+                            <option selected disabled>Seleccione...</option>
+                            @foreach(\App\Bodega::all() as $bodega)
+                                <option data-tokens="{{$bodega->nombre}}" value="{{ $bodega->id }}"><strong>{{ $bodega->id }}</strong>: {{ $bodega->nombre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
                 <div class="col-md-2">
-                    <label class="text-primary font-weight-bold">Cantidad en Mostrador:</label class="text-primary font-weight-bold">
+                    <label class="text-primary font-weight-bold">Cantidad en Mostrador:</label>
                     <div class="input-group">
                         <input placeholder="Cantidad en Mostrador" type="number" name="mostrador" class="form-control" id="cantidadm_add" autofocus>
                     </div>
                 </div>
 
                 <div class="col-md-2">
-                    <label class="text-primary font-weight-bold">Cantidad Bodega:</label class="text-primary font-weight-bold">
+                    <label class="text-primary font-weight-bold">Cantidad Bodega:</label>
                     <div class="input-group">
                         <input placeholder="Cantidad en Bodega" type="number" name="existencias" class="form-control" id="cantidadb_add" autofocus>
                     </div>
@@ -78,14 +90,14 @@ input{
             <div class="row mt-3">
 
                 <div class="col-md-3">
-                    <label class="text-primary font-weight-bold">Fecha Vencimiento (opcional)</label class="text-primary font-weight-bold">
+                    <label class="text-primary font-weight-bold">Fecha Vencimiento (opcional)</label>
                     <div class="input-group">
                         <input  data-provide="datepicker" type="text" class="form-control datepicker" style="border: 1px solid #ccc; border-radius: 0px;" name="vencimiento" id="fecha_add" autofocus>
                     </div>
                 </div>
 
                 <div class="col-md-3">
-                    <label class="text-primary font-weight-bold">Categoria/tipo Producto:</label class="text-primary font-weight-bold">
+                    <label class="text-primary font-weight-bold">Categoria/tipo Producto:</label>
                     <div class="input-group">
                         <select class="form-control" data-live-search="true" name="categoria_id" id="categoria_add">
                             <option selected disabled>Seleccione...</option>
@@ -97,7 +109,7 @@ input{
                 </div>
 
                 <div class="col-md-3">
-                    <label class="text-primary font-weight-bold">Unidad de Medida Producto:</label class="text-primary font-weight-bold">
+                    <label class="text-primary font-weight-bold">Unidad de Medida Producto:</label>
                     <div class="input-group">
                         <select id="unidad_add" class="form-control" name="medida_id" data-live-search="true">
                             <option selected disabled>Seleccione...</option>
@@ -109,7 +121,7 @@ input{
                 </div>
 
                  <div class="col-md-3">
-                    <label class="text-primary font-weight-bold">Estado del Producto:</label class="text-primary font-weight-bold">
+                    <label class="text-primary font-weight-bold">Estado del Producto:</label>
                     <div class="input-group">
                         <select id="estado_add" name="estado" class="form-control">
                             <option selected disabled>Seleccione...</option>
@@ -125,7 +137,7 @@ input{
 
             <div class="row mt-4">
                 <div class="col-md-5">
-                    <label class="text-primary font-weight-bold">Descripción Producto (opcional)</label class="text-primary font-weight-bold">
+                    <label class="text-primary font-weight-bold">Descripción Producto (opcional)</label>
                     <div class="input-group">
                         <textarea name="descripcion" placeholder="Descripción del producto" id="descripcion_add" cols="30" rows="10" style="max-width: 100%; height: 50px; max-height: 150px;" class="form-control"></textarea>
                     </div>

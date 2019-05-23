@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Bodega;
 use App\Categoria;
 use App\Product;
 use App\Detalle;
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Request;
 
+use Yajra\DataTables\DataTables;
+
 class ProductController extends Controller
 {
     /**
@@ -24,8 +27,23 @@ class ProductController extends Controller
 
     public function index()
     {
-        $productos= Product::orderBy('id','ASC')->get();
-        return view('productos.index')-> with('productos',$productos);
+        $bodegas= Bodega::all();
+        return view('productos.index')
+            ->with('bodegas',$bodegas);
+    }
+
+    public function getProductsBodega(Request $request){
+        $productos= Product::select('products.*','bodegas.nombre as bodega_nombre','bodegas.codigo as codigo_bodega')
+            ->join('bodegas','bodegas.id','products.bodega_id')
+            ->where('products.bodega_id',$request->bodega_id)
+            ->orderBy('id','ASC')
+            ->get();
+
+
+        //dd($productos);
+        return DataTables::of($productos)
+            ->make(true);
+        //return view('admin.productos.productos')->with('productos',$productos);
     }
 
     /**
@@ -52,7 +70,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $idProducto = Product::where("id","=",$request->id)->count();
+        $idProducto = Product::where("codigo","=",$request->codigo)->count();
         if ($idProducto > 0) {
             return ("dup2");
         }
@@ -61,12 +79,12 @@ class ProductController extends Controller
             return ("dup");
         }
 
-
         $producto= new Product;
-        $producto->id = $request->id;
+        $producto->codigo = $request->codigo;
         $producto->nombre = $request->nombre;
         $producto->precio_compra = $request->precio_compra;
         $producto->precio_venta = $request->precio_venta;
+        $producto->bodega_id = $request->bodega_id;
         $producto->mostrador = $request->mostrador;
         $producto->existencias = $request->existencias;
         $producto->vencimiento = $request->vencimiento;
@@ -85,17 +103,6 @@ class ProductController extends Controller
         }else{
             return ("error");
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(product $product)
-    {
-        //
     }
 
     /**
@@ -143,15 +150,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->id != $id){
-            $numProducto = Product::where("id","=",$request->id)->count();
+        $producto= Product::find($id);
+        if ($request->codigo != $producto->codigo){
+            $numProducto = Product::where("codigo","=",$request->codigo)
+                ->where('id','!=', $id)
+                ->count();
             if ($numProducto > 0) {
                 return ("dup");
             }
         }
-
-        $producto= Product::find($id);
-
          if ($request->nombre != $producto->nombre){
             $nomProducto = Product::where("nombre","=",$request->nombre)->count();
             if ($nomProducto > 0) {
@@ -159,9 +166,11 @@ class ProductController extends Controller
             }
         }
 
+        $producto->codigo = $request->codigo;
         $producto->nombre = $request->nombre;
         $producto->precio_compra = $request->precio_compra;
         $producto->precio_venta = $request->precio_venta;
+        $producto->bodega_id = $request->bodega_id;
         //$producto->mostrador = $request->mostrador;
         //$producto->existencias = $request->existencias;
         $producto->vencimiento = $request->vencimiento;
