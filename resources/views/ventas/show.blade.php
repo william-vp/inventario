@@ -45,7 +45,7 @@
                     <form method="post" name="save_sale" id="save_sale">
                         <div class="box box-info">
                             <div class="box-header box-header-background-light with-border">
-                                <h3 class="box-title text-center text-info">DATOS FACTURA</h3><br>
+                                <h3 class="box-title text-center text-danger">DATOS FACTURA</h3><br>
                                 <!--<div class="pull-right">
                                     <button type="submit" class="btn btn-success pull-right "><i class="fa fa-print"></i> Guardar e imprimir</button>
                                 </div>-->
@@ -142,11 +142,11 @@
 
                         <div id="divProductAdds" class="col-md-12 mt-2 p-0" style="margin-top:0px; overflow: auto;">
                             <table class="table text-center table-hover" id="tablaDetalles">
-                                <h3 class="box-title text-center text-info">DETALLES</h3><br>
+                                <h3 class="box-title text-center text-dangerIPCONF">DETALLES</h3><br>
                                 <thead>
 	                                <tr>
 	                                    <th>CODIGO</th>
-	                                    <th>DESCRIPCION</th>
+	                                    <th>DESCRIPCIÓN</th>
 	                                    <th class="text-center">CANT.</th>
 	                                    <th><span class="pull-right">PRECIO UNIT.</span></th>
 	                                    <th><span class="pull-right">IVA</span></th>
@@ -157,7 +157,7 @@
                                 <tbody>
                                 	@foreach($productos as $producto)
 	                                	<tr align="center">
-	                                		<td>{{ $producto->id }}</td>
+	                                		<td>{{ $producto->codigo }}</td>
 	                                		<td>{{ $producto->nombre }}</td>
 	                                		<td>{{ $producto->cantidad }}</td>
 	                                		<td>$ {{ number_format($producto->valor_unitario,'2',',','.') }}</td>

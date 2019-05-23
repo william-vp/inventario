@@ -91,7 +91,7 @@ function cargarDatos(data, descuento) {
             var cell6 = row.insertCell(5);
             var cell7 = row.insertCell(6);
             var cell8 = row.insertCell(7);
-            cell1.innerHTML = data[i].idProd;
+            cell1.innerHTML = data[i].codigo;
             cell2.innerHTML = data[i].nombre;
             cell3.innerHTML = "<input type='text' class='form-control inputTable col-sm-10 col-xs-6' style='' value='"+cantidad+"' data-id='"+data[i].idTemp+"' id='editCant_"+data[i].idTemp+"' >";
             cell4.innerHTML = precio;

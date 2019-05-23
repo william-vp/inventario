@@ -90,6 +90,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/reportes/productos_mas_vendidos', ['as' => 'reportes.r1', 'uses' => 'ChartController@productos_mas_vendidos'])->middleware('auth');
     Route::get('/reportes/productos_menos_vendidos', ['as' => 'reportes.r2', 'uses' => 'ChartController@productos_menos_vendidos'])->middleware('auth');
     Route::get('/reportes/ventas_creditos', ['as' => 'reportes.r4', 'uses' => 'ChartController@ventas_creditos'])->middleware('auth');
+    Route::get('/reportes/ingresos_egresos', ['as' => 'reportes.r7', 'uses' => 'ChartController@ingresos_egresos'])->middleware('auth');
     Route::get('/reportes/ventas_mes', ['as' => 'reportes.r5', 'uses' => 'ChartController@ventas_mes'])->middleware('auth');
     Route::get('/reportes/utilidad_productos', ['as' => 'reportes.r6', 'uses' => 'ChartController@utilidad_productos'])->middleware('auth');
     Route::get('/reportes/cajas', ['as' => 'reportes.r3', 'uses' => 'ChartController@cajas'])->middleware('auth');

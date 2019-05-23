@@ -345,14 +345,15 @@
                             </div>-->
                             <?php $count= 0; ?>
                             @foreach($bodegas as $bodega)
-                                <div class="tab-pane <?= $count === 0 ? 'active': '' ?>" id="productos_bodega_{{ $bodega->id }}" role="tabpanel">
+                                <div class="mt-3 tab-pane <?= $count === 0 ? 'active': '' ?>" id="productos_bodega_{{ $bodega->id }}" role="tabpanel">
                                    <h4 class="card-title text-danger">Productos Bodega {{ $bodega->codigo }}</h4>
 
-                                    <table id="tablaProductosBodega_{{ $bodega->id }}" class="table table-hover" cellspacing="0" width="100%">
+                                    <div class="text-left mb-1 text-info w-auto"> <i class="fa fa-info-circle" data-toggle="tooltip" title="Exportar al formato correspondiente"></i> Exportar productos:</div>
+                                    <table id="tablaProductosBodega_{{ $bodega->id }}" class="table table-hover mt-5" cellspacing="0" width="100%" style="overflow: auto;">
                                         <thead>
                                         <tr>
                                             <th>Código</th>
-                                            <th class="text-center"><i class="ti-image"></i></th>
+                                            <th class="text-center"><i class="ti-image"></i> Imagen</th>
                                             <th>Nombre</th>
                                             <th>Precio Compra</th>
                                             <th>Precio Venta</th>
@@ -365,7 +366,7 @@
                                         <tfoot>
                                         <tr>
                                             <th>Código</th>
-                                            <th><i class="ti-image"></i></th>
+                                            <th><i class="ti-image"></i> Imagen</th>
                                             <th>Nombre</th>
                                             <th>Precio Compra</th>
                                             <th>Precio Venta</th>
@@ -389,6 +390,19 @@
         </div>
     </div>
 
+
+<script src="{{ asset('js/buttons.html5.min.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
+<script src="{{ asset('js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('js/pdfmake.min.js') }}"></script>
+<script src="{{ asset('js/vfs_fonts.js') }}"></script>
+<script src="{{ asset('js/jszip.min.js') }}"></script>
+<script src="{{ asset('js/buttons.colVis.min.js') }}"></script>
+    <style>
+        .dropdown-item.active, .dropdown-item:active{
+            color: #0c0d0d;
+        }
+    </style>
 <script>
     @if(isset($_GET['search']) and isset($_GET['bodega']))
             var active_tab_selector = $('.nav-tabs > .nav-item > a.active');
@@ -420,7 +434,7 @@
                     type: 'POST',
                     data: {
                         '_token': $('meta[name="csrf-token"]').attr('content'),
-                        'bodega_id': {{ $bodega->id }}
+                        'bodega_id': {{ $bodega->id }},
                     },
                 },
                 language: {
@@ -466,6 +480,37 @@
                                 '<a href="/productos/'+data.id+'/changeStatus" data-toggle="tooltip" title="Cambiar Estado"   class="btn btn-info m-2"><i class="ti-reload text-white"></i></a>';
                             return acciones;
                         }
+                    }
+                ],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                    },
+                    /*{
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                    },*/
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: 'Ocultar Columnas'
                     }
                 ]
             });

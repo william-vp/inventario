@@ -11,7 +11,7 @@
         <tr>
             <th>Id</th>
             <th>Nombre</th>
-            <th>A</th>
+            <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -79,22 +79,26 @@
         </div>
     </div>
 
-    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    <script src="{{ asset('js/buttons.html5.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
+    <script src="{{ asset('js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('js/pdfmake.min.js') }}"></script>
     <script src="{{ asset('js/vfs_fonts.js') }}"></script>
     <script src="{{ asset('js/jszip.min.js') }}"></script>
+    <script src="{{ asset('js/buttons.colVis.min.js') }}"></script>
 
 
     <script type="text/javascript">
         $('#tablaUnidades').DataTable({
             "order": [[1, "asc"]],
-            dom: 'Bfrtip',
+            /*dom: 'Bfrtip',
             buttons: [
                 'copy',
                 'excelHtml5',
                 'csvHtml5',
-                'pdfHtml5'
-            ],
+                'pdfHtml5',
+                'colvis'
+            ],*/
         });
     </script>
     <script src="{{ asset('js/scripts/unidad.js') }}"></script>

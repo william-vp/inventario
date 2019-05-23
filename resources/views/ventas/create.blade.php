@@ -200,7 +200,7 @@
                             <tbody>
                             @foreach($productos as $producto)
                                 <tr align="center" id="tr_{{ $producto->id }}" class="text-center">
-                                    <td class="hideTd">{{$producto->id}}</td>
+                                    <td class="hideTd">{{$producto->codigo}}</td>
                                     <td class="hideTd"><img width="60" src="{{ Storage::url($producto->imagen) }}" alt=""></td>
                                     <td id="nom_{{ $producto->id }}">{{$producto->nombre}}</td>
                                     <td>{{ $producto->mostrador }}</td>

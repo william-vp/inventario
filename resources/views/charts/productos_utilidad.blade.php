@@ -50,30 +50,32 @@
                     </div>
 
                     <div class="row mt-5">
-                        <div class="col-md-2">
-                            <table id="datatable" class="table table-hover">
+                        <div class="panel-body col-md-12" id="containerChart">
+                        </div>
+
+                        <div class="col-md-12">
+                            <h2>Tabla Utilidad Productos Vendidos</h2>
+                            <table id="tablaUtilidad" class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th>Producto/Cantidad Vendida</th>
+                                    <th>Id/Producto/Cantidad Vendida</th>
                                     <th>Utilidad</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($productos as $producto)
                                     <tr>
-                                        <td>{{ $producto->nombre }} <br> <strong>{{ $producto->total_ventas }}</strong> </td>
+                                        <td><strong>{{ $producto->codigo }}</strong>: {{ $producto->nombre }} = <strong>{{ $producto->total_ventas }}</strong> </td>
                                         <?php
-                                            $precio_compra= $producto->precio_compra;
-                                            $precio_venta= $producto->precio_venta;
-                                            $utilidad= $precio_venta - $precio_compra;
+                                        $precio_compra= $producto->precio_compra;
+                                        $precio_venta= $producto->precio_venta;
+                                        $utilidad= $precio_venta - $precio_compra;
                                         ?>
                                         <td>{{ number_format($utilidad, 0, ',','.') }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="panel-body col-md-10" id="containerChart">
                         </div>
                     </div>
 
@@ -89,13 +91,13 @@
     <script type="text/javascript">
         Highcharts.chart('containerChart', {
             data: {
-                table: 'datatable'
+                table: 'tablaUtilidad'
             },
             chart: {
-                type: 'column'
+                type: 'bar'
             },
             title: {
-                text: 'Reporte de Ventas'
+                text: 'Reporte de Utilidad de productos vendidos'
             },
             yAxis: {
                 allowDecimals: false,
@@ -109,6 +111,19 @@
                         this.point.y + ' ' + this.point.name.toLowerCase();
                 }
             }
+        });
+    </script>
+    <script type="text/javascript">
+        $('#tablaUtilidad').DataTable({
+            "order": [[1, "asc"]],
+            /*dom: 'Bfrtip',
+            buttons: [
+                'copy',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5',
+                'colvis'
+            ],*/
         });
     </script>
     <script src="{{ asset('js/scripts/reporte.js') }}"></script>

@@ -132,7 +132,7 @@ class FacturaController extends Controller
             ->where('facturas.id','=',$id)
             ->orderBy('id','DESC')->firstOrFail();
 
-        $productos= Detalle::select('products.id','products.nombre','categorias.impuesto','products.categoria_id','detalles.producto_id','detalles.cantidad','detalles.valor_unitario','detalles.valor_total')
+        $productos= Detalle::select('products.id', 'products.codigo','products.nombre','categorias.impuesto','products.categoria_id','detalles.producto_id','detalles.cantidad','detalles.valor_unitario','detalles.valor_total')
             ->join('products', 'products.id','=','detalles.producto_id')
             ->join('categorias', 'categorias.id','=','products.categoria_id')
             ->where('detalles.factura_id','=',$id)->get();

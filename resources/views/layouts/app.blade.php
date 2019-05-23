@@ -380,6 +380,9 @@
                           <a class='sidebar-link' href="{{ url('/reportes/utilidad_productos') }}"><i class="ti-clipboard"></i> Utilidad de productos Vendidos</a>
                         </li>
                         <li>
+                          <a class='sidebar-link' href="{{ url('/reportes/ingresos_egresos') }}"><i class="ti-pulse"></i> Ingresos / Egresos</a>
+                        </li>
+                        <li>
                             <a class='sidebar-link' href="{{ url('/reportes/ventas_creditos') }}"><i class="ti-shopping-cart"></i> Ventas / Creditos</a>
                         </li>
                         <li>

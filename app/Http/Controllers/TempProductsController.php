@@ -42,7 +42,7 @@ class TempProductsController extends Controller
             $tmp->save();
         }
 
-        $productosAdds = TempProducts::select('products.id as idProd','products.nombre','categorias.impuesto','temp_products.id as idTemp','temp_products.cantidad','temp_products.precio')
+        $productosAdds = TempProducts::select('products.id as idProd', 'products.codigo','products.nombre','categorias.impuesto','temp_products.id as idTemp','temp_products.cantidad','temp_products.precio')
             ->join('products', 'products.id','=','temp_products.producto_id')
             ->join('categorias', 'categorias.id','=','products.categoria_id')
             ->where('caja_id','=',session()->get('caja_id'))
@@ -57,7 +57,7 @@ class TempProductsController extends Controller
         $tmp->cantidad= $request->cantidad;
         $tmp->save();
 
-        $productosAdds = TempProducts::select('products.id as idProd','products.nombre','categorias.impuesto','temp_products.id as idTemp','temp_products.cantidad','temp_products.precio')
+        $productosAdds = TempProducts::select('products.id as idProd','products.codigo','products.nombre','categorias.impuesto','temp_products.id as idTemp','temp_products.cantidad','temp_products.precio')
             ->join('products', 'products.id','=','temp_products.producto_id')
             ->join('categorias', 'categorias.id','=','products.categoria_id')
             ->where('caja_id','=',session()->get('caja_id'))
@@ -68,7 +68,7 @@ class TempProductsController extends Controller
     public function removeProduct(Request $request){
         $producto= TempProducts::find($request->id);
         if ($producto->delete()){
-            $productosAdds = TempProducts::select('products.id as idProd','products.nombre','categorias.impuesto','temp_products.id as idTemp','temp_products.cantidad','temp_products.precio')
+            $productosAdds = TempProducts::select('products.id as idProd','products.codigo','products.nombre','categorias.impuesto','temp_products.id as idTemp','temp_products.cantidad','temp_products.precio')
                 ->join('products', 'products.id','=','temp_products.producto_id')
                 ->join('categorias', 'categorias.id','=','products.categoria_id')
                 ->where('caja_id','=', $request->caja_id)
@@ -94,7 +94,7 @@ class TempProductsController extends Controller
     }
 
     public function queryProducts(){
-        $productosAdds = TempProducts::select('products.id as idProd','products.nombre','categorias.impuesto','temp_products.id as idTemp','temp_products.cantidad','temp_products.precio')
+        $productosAdds = TempProducts::select('products.id as idProd','products.codigo','products.nombre','categorias.impuesto','temp_products.id as idTemp','temp_products.cantidad','temp_products.precio')
             ->join('products', 'products.id','=','temp_products.producto_id')
             ->join('categorias', 'categorias.id','=','products.categoria_id')
             ->where('caja_id','=',session()->get('caja_id'))
