@@ -136,10 +136,10 @@ input{
             </div>
 
             <div class="row mt-4">
-                <div class="col-md-5">
+                <div class="col-md-12 text-left">
                     <label class="text-primary font-weight-bold">Descripción Producto (opcional)</label>
                     <div class="input-group">
-                        <textarea name="descripcion" placeholder="Descripción del producto" id="descripcion_add" cols="30" rows="10" style="max-width: 100%; height: 50px; max-height: 150px;" class="form-control"></textarea>
+                        <textarea name="descripcion" placeholder="Descripción del producto" id="descripcion_add" cols="40" rows="20" style="width: 300px; max-width: 500px; height: 50px; max-height: 150px;" class="form-control"></textarea>
                     </div>
                  </div>
             </div>

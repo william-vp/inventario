@@ -140,7 +140,6 @@ Route::group(['middleware' => 'admvend'], function () {
     Route::post('/creditos/{id}/abonos/store', ['as' => 'abono.store', 'uses' => 'AbonoController@store'])->middleware('auth');
 });
 
-
 Route::get('/denied', ['as' => 'denied', function() {
     return view('403');
 }]);

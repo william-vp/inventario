@@ -1,5 +1,8 @@
 @extends('layouts.app')
 <style>
+    .dataTables_wrapper{
+        overflow: auto!important;
+    }
     button,
     input {
         font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
@@ -155,7 +158,7 @@
         border-radius: 30px;
         font-size: 14px;
         padding: 11px 23px;
-        line-height: 1.5;
+        /*line-height: 1.5;*/
     }
 
     .nav-tabs>.nav-item>.nav-link:hover {
@@ -330,7 +333,7 @@
                             @foreach($bodegas as $bodega)
                                 <li class="nav-item">
                                     <a id="link_{{ $bodega->id }}" class="nav-link <?= $count === 0 ? 'active': '' ?>" data-toggle="tab" href="#productos_bodega_{{ $bodega->id }}" role="tab">
-                                        <i class="now-ui-icons shopping_shop"></i> Bodega <strong>{{ $bodega->codigo }}</strong>
+                                        <i class="fa fa-home"></i> Bodega <strong>{{ $bodega->codigo }}</strong>
                                     </a>
                                 </li>
                                 <?php $count++; ?>
@@ -349,7 +352,7 @@
                                    <h4 class="card-title text-danger">Productos Bodega {{ $bodega->codigo }}</h4>
 
                                     <div class="text-left mb-1 text-info w-auto"> <i class="fa fa-info-circle" data-toggle="tooltip" title="Exportar al formato correspondiente"></i> Exportar productos:</div>
-                                    <table id="tablaProductosBodega_{{ $bodega->id }}" class="table table-hover mt-5" cellspacing="0" width="100%" style="overflow: auto;">
+                                    <table id="tablaProductosBodega_{{ $bodega->id }}" class="table table-hover mt-5" cellspacing="0" width="100%">
                                         <thead>
                                         <tr>
                                             <th>Código</th>
