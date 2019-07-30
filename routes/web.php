@@ -4,6 +4,7 @@ Auth::routes();
 Route::get('/', ['as' => 'index', 'uses' => 'HomeController@index'])->middleware('auth');
 //Route::get('/', ['as' => 'index', 'uses' => 'HomeController@index']);
 Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@index'])->middleware('auth');
+Route::post('/getDateSuscription', ['as' => 'getDateSuscription', 'uses' => 'HomeController@getDateSuscription'])->middleware('auth');
 Route::post('/convertir_moneda', ['as' => 'convertir_moneda', 'uses' => 'HomeController@currency'])->middleware('auth');
 
 Route::get('/perfil', ['as' => 'perfil', 'uses' => 'UsersController@perfil'])->middleware('auth');

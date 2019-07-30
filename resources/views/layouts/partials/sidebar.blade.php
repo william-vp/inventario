@@ -3,10 +3,10 @@
 @if (Route::has('login'))
     @if (Auth::check() and Auth::user()->type == "ADMIN" )
         <!--SIDEBAR ADMIN-->
-            <div class="sidebar is-collapseed">
+            <div class="sidebar is-collapseed bg-dark">
                 <div class="sidebar-inner">
                     <!-- ### $Sidebar Header ### -->
-                    <div class="sidebar-logo">
+                    <div class="sidebar-logo" style="border-bottom: 1px solid #FFF;">
                         <div class="peers ai-c fxw-nw">
                             <div class="peer peer-greed">
                                 <a class="sidebar-link td-n" href="{{ url('/') }}">
@@ -17,7 +17,7 @@
                                             </div>
                                         </div>
                                         <div class="peer peer-greed">
-                                            <h5 class="lh-1 mB-0 logo-text">{{session('app_name')}}</h5>
+                                            <h5 class="lh-1 mB-0 logo-text text-white">{{session('app_name')}}</h5>
                                         </div>
                                     </div>
                                 </a>
@@ -36,9 +36,9 @@
                     <ul class="sidebar-menu scrollable pos-r">
                         <li class="nav-item mT-30 active">
                             <a class="sidebar-link" href="{{ url('/') }}">
-                        <span class="icon-holder">
-                          <i class="c-blue-500 ti-home"></i>
-                        </span>
+                            <span class="icon-holder">
+                              <i class="c-blue-500 ti-home"></i>
+                            </span>
                                 <span class="title">Inicio</span>
                             </a>
                         </li>
@@ -46,7 +46,7 @@
                         <li class="nav-item" data-toggle="tooltip" title="Administrar Cajas">
                             <a class="sidebar-link" href="{{ url('/cajas') }}">
                             <span class="icon-holder">
-                              <i class="text-dark ti-desktop"></i>
+                              <i class="text-white ti-desktop"></i>
                             </span>
                             <span class="title">Cajas</span>
                             </a>

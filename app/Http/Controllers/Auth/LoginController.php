@@ -42,7 +42,6 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-
     }
 
     public function showLoginForm(){
@@ -66,6 +65,20 @@ class LoginController extends Controller
                 'password' => $password] )){
 
                 $general= General::orderBy('id','ASC')->get()->last();
+
+                $date_out= $general->end_subscription;
+                $fechaEnd= mktime(
+                    date_format(date_create($date_out), 'g'),
+                    date_format(date_create($date_out), 'i'),
+                    date_format(date_create($date_out), 's'),
+                    date_format(date_create($date_out), 'm'),
+                    date_format(date_create($date_out), 'd'),
+                    date_format(date_create($date_out), 'Y'));
+
+                $today = time();
+                //$event = mktime(11,36,0,07,25,2019);
+                $countdown = round(($fechaEnd - $today)/86400);
+                
                 session()->put('app_name', $general->nombre );
                 session()->put('app_logo', $general->logo );
                 session()->put('app_portada', $general->portada);

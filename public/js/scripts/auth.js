@@ -46,6 +46,10 @@ $(document).on('click', "#btnLogin", function () {
                     toastr.success('Inicio de sesión exitoso. Espere un momento...', 'Correcto!!', {timeOut: 3000});
                     location.href= '/home';
                     return true;
+                } else if (d == 'subscription_out'){
+                    toastr.error('Su suscripción ha terminado. Por Favor contactese con un técnico para solucionarlo.', 'Suscripción Terminada', {timeOut: 3000});
+                    location.reload();
+                    return false;
                 } else {
                     toastr.error('Compruebe que los campos ingresados sean correctos', 'Error', {timeOut: 3000});
                     $('#email').focus();

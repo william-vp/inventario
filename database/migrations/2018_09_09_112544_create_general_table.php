@@ -20,6 +20,8 @@ class CreateGeneralTable extends Migration
             $table->text('portada');
             $table->string('email');
             $table->string('telefono');
+            $table->dateTime('start_subscription');
+            $table->dateTime('end_subscription');
             $table->timestamps();
         });
     }

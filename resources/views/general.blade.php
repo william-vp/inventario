@@ -30,7 +30,26 @@
 
         }
 
-    </style>    
+    </style>
+    <style>
+        .countdown-container{
+            padding: 15px;
+        }
+
+        .countdown li {
+            display: inline-block;
+            font-size: 1em;
+            list-style-type: none;
+            padding: 1em;
+            text-transform: uppercase;
+            border: 1px solid #0894D8;
+        }
+
+        .countdown li span {
+            display: block;
+            font-size: 2rem;
+        }
+    </style>
     <div class="text-left container mb-3 p-0">
         <a class="btn btn-outline-primary" href="{{ URL::previous() }}"><i class="ti-arrow-left"></i> Volver</a>
     </div>
@@ -88,7 +107,34 @@
                                             </div>
                                         </div>
 
-                        
+
+
+
+                                    </div>
+                                    <div class="row mt-4 justify-content-start">
+                                        <div class="col-md-5">
+
+                                            <div class="countdown-container bg-dark text-white text-center">
+                                                <h2>Suscripción</h2>
+                                                <p>
+                                                    <strong>Fecha Inicio: </strong>
+                                                    <span id="dateIni"></span>
+                                                </p>
+                                                <p>
+                                                    <strong>Fecha Fin: </strong>
+                                                    <span id="dateFin"></span>
+                                                </p>
+
+                                                <h3 id="head">Tiempo restante:</h3>
+                                                <ul class="countdown">
+                                                    <li><span id="days"></span>DÍAS</li>
+                                                    <li><span id="hours"></span>HORAS</li>
+                                                    <li><span id="minutes"></span>MINUTOS</li>
+                                                    <li><span id="seconds"></span>SEGUNDOS</li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div><!-- /.box-body -->
                             </div>

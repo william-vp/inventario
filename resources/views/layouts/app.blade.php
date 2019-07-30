@@ -442,6 +442,9 @@
             -ms-transition: all 0.3s;
             -o-transition: all 0.3s;
             transition: all 0.3s;
+            background: #263238;
+            padding: 15px;
+            border-radius: 15px;
         }
         .material-card.mc-active .img-container {
             /*-webkit-border-radius: 50%;
@@ -1474,17 +1477,34 @@
                 margin-bottom: 6em;
             }
         }
+
+        .sidebar-menu .nav-item a{
+            color: #FFF;
+        }
+        .sidebar-menu .nav-item a:hover, .sidebar-menu .nav-item a:focus, .sidebar-menu .nav-item a:active, .sidebar-menu .nav-item a.active{
+            color: #1D9BB8;
+            border-left: 2px solid #1D9BB8;
+        }
     </style>
 </head>
 <body class="app">
 <div id='loader'>
     <div class="spinner"></div>
+    <div align="center" id="message_suscripction" style="height: 800px; margin: auto;">
+    </div>
 </div>
 
+<!--<div class="alert alert-info">
+            <img src="{{ asset('images/alert.png') }}" width="100" alt="alert">
+            <p class="mt-4">
+                <i class="ti-info"></i> Tu Suscripción ha terminado. Contactanos para reactivarla.
+            </p>
+        </div>-->
+
 @include('layouts.partials.sidebar')
-<div class="page-container">
+<div class="page-container" id="app">
     <!-- ### $Topbar ### -->
-    <div class="header navbar" style="background: rgba(255, 255, 255, 0.95);">
+    <div class="header navbar bg-light" style="background: rgba(255, 255, 255, 0.95);">
         <div class="header-container">
             <ul class="nav-left">
                 <li>
@@ -1578,7 +1598,7 @@
     </div>
 
     <!-- ### $App Screen Content ### -->
-    <main id="content-main" class='main-content bgc-grey-100 mb-0'>
+    <main id="content-main" class='main-content bgc-grey-300 mb-0'>
         <div id='mainContent'>
             <div class="row gap-20 masonry pos-r">
                 <div class="masonry-item  w-100">
@@ -1599,20 +1619,20 @@
             </div>
         </div>
     </main>
-    <div style="display: none;" id="menuContainer" class="main-content bg-light mb-0">
+    <div style="display: none;" id="menuContainer" class="main-content bgc-grey-300 mb-0">
         <div id='mainContent'>
             <div class="row gap-20 masonry pos-r">
-                <div class="masonry-item  w-100">
+                <div class="masonry-item w-100">
                     <div class="row">
 
-                        <div class="card col-sm-12 p-0 bg-light">
-                            <div class="card-header text-center text-white p-5 border-0 bg-dark">
-                                <h2 class="mt-lg-0 mt-sm-5 mB-2 text-capitalize text-white" id="title-menu"></h2>
+                        <div class="card col-sm-12 p-0 bgc-grey-300">
+                            <div class="card-header text-center text-white p-5 border-0 bgc-grey-300">
+                                <h2 class="mt-lg-0 mt-sm-5 mB-2 text-capitalize text-dark" id="title-menu"></h2>
                             </div>
-                            <div class="card-body container">
+                            <div class="card-body container bgc-grey-300">
 
                                 <div id="ventas" class="row tabs-options" style="display: none;">
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/ventas') }}">
                                             <article class="material-card Cyan text-center justify-content-center">
                                                 <div class="mc-content">
@@ -1636,7 +1656,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/ventas/create') }}">
                                             <article class="material-card Cyan text-center justify-content-center">
                                                 <div class="mc-content">
@@ -1660,7 +1680,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/clientes/') }}">
                                             <article class="material-card Cyan text-center justify-content-center">
                                                 <div class="mc-content">
@@ -1686,7 +1706,7 @@
                                 </div>
 
                                 <div id="pedidos" class="row tabs-options" style="display: none;">
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ route('pedidos.index') }}">
                                             <article class="material-card Green text-center justify-content-center">
                                                 <div class="mc-content">
@@ -1710,7 +1730,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/pedidos/create') }}">
                                             <article class="material-card Green text-center justify-content-center">
                                                 <div class="mc-content">
@@ -1734,7 +1754,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/proveedores/') }}">
                                             <article class="material-card Green text-center justify-content-center">
                                                 <div class="mc-content">
@@ -1760,7 +1780,7 @@
                                 </div>
 
                                 <div id="creditos" class="row tabs-options" style="display: none;">
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/creditos') }}">
                                             <article class="material-card Red text-center justify-content-center">
                                                 <div class="mc-content">
@@ -1784,7 +1804,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/pedidos_credito') }}">
                                             <article class="material-card Red text-center justify-content-center">
                                                 <div class="mc-content">
@@ -1811,7 +1831,7 @@
                                 </div>
 
                                 <div id="inventario" class="row tabs-options" style="display: none;">
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/productos') }}">
                                             <article class="material-card Orange text-center justify-content-center">
                                                 <div class="mc-content">
@@ -1835,7 +1855,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/productos/create') }}">
                                             <article class="material-card Orange text-center justify-content-center">
                                                 <div class="mc-content">
@@ -1859,7 +1879,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/bodegas') }}">
                                             <article class="material-card Orange text-center justify-content-center">
                                                 <div class="mc-content">
@@ -1883,7 +1903,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/unidades_medida') }}">
                                             <article class="material-card Orange text-center justify-content-center">
                                                 <div class="mc-content">
@@ -1907,7 +1927,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/categorias') }}">
                                             <article class="material-card Orange text-center justify-content-center">
                                                 <div class="mc-content">
@@ -1934,7 +1954,7 @@
                                 </div>
 
                                 <div id="reportes" class="row tabs-options" style="display: none;">
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/reportes/productos_mas_vendidos') }}">
                                             <article class="material-card Red text-center justify-content-center">
                                                 <div class="mc-content">
@@ -1958,7 +1978,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/reportes/productos_menos_vendidos') }}">
                                             <article class="material-card Red text-center justify-content-center">
                                                 <div class="mc-content">
@@ -1982,7 +2002,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/reportes/ventas_mes') }}">
                                             <article class="material-card Red text-center justify-content-center">
                                                 <div class="mc-content">
@@ -2006,7 +2026,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/reportes/utilidad_productos') }}">
                                             <article class="material-card Red text-center justify-content-center">
                                                 <div class="mc-content">
@@ -2030,7 +2050,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/reportes/ingresos_egresos') }}">
                                             <article class="material-card Red text-center justify-content-center">
                                                 <div class="mc-content">
@@ -2054,7 +2074,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/reportes/ventas_creditos') }}">
                                             <article class="material-card Red text-center justify-content-center">
                                                 <div class="mc-content">
@@ -2078,7 +2098,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
                                         <a href="{{ url('/reportes/cajas') }}">
                                             <article class="material-card Red text-center justify-content-center">
                                                 <div class="mc-content">
@@ -2117,8 +2137,8 @@
 
     <!-- ### Footer ### -->
     <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600">
-          <span>Copyright © {{session('app_name')}} 2018 |
-            <i class="ti-email"></i> <a style="color: gray;"
+          <span class="">Copyright © {{session('app_name')}} 2018 |
+            <i class="ti-email"></i> <a style="color: gray"
                                         href="mailto:{{session('app_email')}}">{{session('app_email')}}</a> <i
                       class="ti-mobile"></i> {{session('app_telefono')}}
           </span>

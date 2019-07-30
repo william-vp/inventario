@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Credito;
 use App\Factura;
 use App\Detalle;
+use App\General;
 use App\PedidoCredito;
 use App\Product;
 use App\Pedido;
@@ -38,8 +39,7 @@ class HomeController extends Controller
         $pedidosCredito= PedidoCredito::whereBetween('created_at', [$dateI, $dateF])->count();
         $pedidos= $pedidosContado + $pedidosCredito;
 	        $agregados= Product::select('products.id','products.nombre','products.imagen')
-	        ->orderBy('products.created_at','DESC')->take(5)->skip(0)->distinct()->get(); 
-	            
+	        ->orderBy('products.created_at','DESC')->take(5)->skip(0)->distinct()->get();
 
         return view('index')
             ->with('usuarios',$user)
@@ -49,6 +49,38 @@ class HomeController extends Controller
             ->with('pedidos',$pedidos);
     }
 
+    public function getDateSuscription(){
+        $date= General::select('end_subscription', 'start_subscription')->limit(1)->orderBy('id','DESC')->first();
+        $date_ini= $date->start_subscription;
+        $date_end= $date->end_subscription;
+
+        //dd(date_format(date_create($date_ini), ''));
+        $fechaIniString= gmmktime(
+            date_format(date_create($date_ini), 'g'),
+            date_format(date_create($date_ini), 'i'),
+            date_format(date_create($date_ini), 's'),
+            date_format(date_create($date_ini), 'm'),
+            date_format(date_create($date_ini), 'd'),
+            date_format(date_create($date_ini), 'Y'));
+
+        $fechaFinString= gmmktime(
+            date_format(date_create($date_end), 'g'),
+            date_format(date_create($date_end), 'i'),
+            date_format(date_create($date_end), 's'),
+            date_format(date_create($date_end), 'm'),
+            date_format(date_create($date_end), 'd'),
+            date_format(date_create($date_end), 'Y'));
+
+        $date_start= date_format(date_create($date_ini), 'g:ia \o\n l jS F Y');
+        $date_end= date_format(date_create($date_end), 'g:ia \o\n l jS F Y');
+
+        setlocale(LC_TIME, 'es_ES');
+        return ["start_subscription"=> $date_start,
+                'end_subscription'=> $date->end_subscription,
+                'lc' => setlocale(LC_TIME, 'es_ES'),
+                'start_date_string'=> strftime("%A, %d de %B de %Y", $fechaIniString),
+                'end_date_string'=> strftime("%A, %d de %B de %Y", $fechaFinString)];
+    }
 
     function currency(Request $request)
     {

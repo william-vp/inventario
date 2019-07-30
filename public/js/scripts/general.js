@@ -83,3 +83,42 @@ $(document).on('click', "#btnSave", function () {
         }
     });
 });
+
+/*$(document).ready(function () {
+    function show_message_suscription_out(date) {
+        var container_message= $("#message_suscripction");
+        var loader= $("#loader");
+        $("body").mouseover(function () {
+            loader.removeClass("fadeOut");
+            loader.addClass("active");
+            content_message= '<div class="alert alert-info">' +
+            '            <img src="/images/alert.png" width="100" alt="alert">' +
+            '            <p class="mt-4">' +
+            '                <i class="ti-info"></i> Tu Suscripción terminó en '+date+'. Contactanos para reactivarla.' +
+            '            </p>' +
+            '        </div>';
+            container_message.html(content_message);
+        });
+    }
+
+    const second = 1000,
+        minute = second * 60,
+        hour = minute * 60,
+        day = hour * 24;
+    var date= 'Jul 24, 2019 19:10:00';
+    let countDown = new Date(date).getTime(),
+        x = setInterval(function() {
+            let now = new Date().getTime(),
+                distance = countDown - now;
+                document.getElementById('days').innerText = Math.floor(distance / (day)),
+                document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour));
+                //document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+                //document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
+
+            if (distance <= 0) {
+                show_message_suscription_out(date);
+                clearInterval(x);
+            }
+        }, second);
+
+});*/
